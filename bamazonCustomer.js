@@ -12,21 +12,21 @@ const connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-  console.log("Welcome to Selene's Books! We have all your magic needs. Blessed Be!");
+  console.log("Welcome to Ed's Music! Rock on!!");
   start();
 });
 
 function start() {
   inquirer
     .prompt({
-      name: "buyOrExit",
+      name: "rockOrExit",
       type: "rawlist",
-      message: "Would you like to [BUY] some stuff or [EXIT] ?",
-      choices: ["BUY", "EXIT"]
+      message: "Would you like to [ROCK] your way to the cash register or [EXIT] ?",
+      choices: ["ROCK", "EXIT"]
     })
     .then(function(answer) {
-      if (answer.buyOrExit.toUpperCase() === "BUY") {
-        buyStuff();
+      if (answer.buyOrExit.toUpperCase() === "ROCK") {
+        buyRock();
       }
       else {
         connection.end();
@@ -36,7 +36,7 @@ function start() {
 
 
 
-function buyStuff() {
+function buyRock() {
   connection.query("SELECT * FROM products", function(err, results) {
     if (err) throw err;
     inquirer
@@ -51,12 +51,12 @@ function buyStuff() {
             }
             return choiceArray;
           },
-          message: "What item would you like to buy?"
+          message: "What tunes are you into?"
         },
         {
           name: "quantity",
           type: "input",
-          message: "How many would you like to buy?"
+          message: "How many?"
         }
       ])
       .then(function(answer) {

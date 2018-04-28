@@ -14,21 +14,21 @@ let currentStats = new Table({
     colWidths: [25, 25, 25, 25, 25,]
 });
 
-// main menu
+
 function start(){
     inquirer.prompt(
         {
             type: 'rawlist',
             name: 'choice',
-            message: "Hello, what would you like to do today?",
-            choices: ['View Product Sales by Department', 'Create New Department', 'Exit']
+            message: "Hello, what activity today?",
+            choices: ['View Product Sales for each Dept.', 'Create New Dept.', 'Exit']
         }
     ).then(function(answer){
         switch (answer.choice){
-            case 'View Product Sales by Department':
+            case 'View Product Sales for each Dept.':
             salesStats();
             break;
-            case 'Create New Department': 
+            case 'Create New Dept.': 
             newDept();
             break;
             case 'Exit':
@@ -38,7 +38,6 @@ function start(){
     })
 }
 
-// view product sales by department
 
 function salesStats(){
     connection.query(`SELECT departments.department_id, SUM(product_sales), departments.department_name, over_head_costs, SUM(product_sales) - over_head_costs as total_profit
@@ -63,7 +62,7 @@ function salesStats(){
             let profit = department.total_profit;
             currentStats.push([id, deptName, zerofy(overHead), zerofy(prodSales), zerofy(profit)]);
         });
-        // currentStats.push([1, 2, 3, 4, 5]);
+        
         console.log(currentStats.toString());
         start();
     })

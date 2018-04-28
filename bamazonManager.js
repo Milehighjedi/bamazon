@@ -14,43 +14,42 @@ connection.connect(function(err) {
   });
 
 
-// Main menu, allows user to select different actions
 function start(){
 inquirer.prompt(
     {
     name: 'actionList',
     type: 'rawlist',
-    message: "What would you like to do?",
-    choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"]
+    message: "What action?",
+    choices: ["View Products", "View Inventory", "Add Inventory", "Add New Item"]
 }).then(function(action){
     let managerAction = action.actionList.toLowerCase();
     switch(managerAction){
-        case 'view products for sale':
+        case 'view products':
         inventory();
         break;
-        case 'view low inventory':
+        case 'view inventory':
         lowInventory();
         break;
-        case 'add to inventory':
+        case 'add inventory':
         addInventory();
         break;
-        case 'add new product':
+        case 'add new item':
         addProduct();
         break;
         default: 
-        console.log("Please select a valid action.");
+        console.log("Please select a current option.");
         break;
     }
 });
 };
 
-//Allows user to either exit program or return to main menu options
+
 function returntoMenu() {
     inquirer.prompt({
         name: 'return',
         type: 'rawlist',
         choices: ["Return to Main Menu", "Exit"],
-        message: "Would you like to return to main menu or exit?"
+        message: "Would you like to return to the Main Menu or Exit?"
     }).then(function(answer){
         if (answer.return === "Return to Main Menu") {
             start();
@@ -61,7 +60,6 @@ function returntoMenu() {
     })
 };
 
-// Displays all current inventory
 
 function inventory(){
     connection.query("SELECT * FROM products", function(err, res){
@@ -74,7 +72,7 @@ function inventory(){
     });
 };
 
-// Displays all inventory with a quantity < 5
+
 function lowInventory(){
     let query = "SELECT * FROM products WHERE stock_quantity <= 5";
     connection.query(query, function(err, res){
@@ -85,7 +83,7 @@ function lowInventory(){
     });
 };
 
-// Allows user to add to the quantity of a product
+
 function addInventory(){
     connection.query("SELECT * FROM products", function(err, res){
     inquirer.prompt([
@@ -99,13 +97,13 @@ function addInventory(){
               }
               return choiceArray;
         },
-        message: "What item would you like to add inventory to?"
+        message: "What item would you like to increase the inventory of?"
     }, 
     {
         name: 'quantity', 
         type: 'input',
-        message: 'How many units would you like to add?',
-        validate: (x) => {if(isNaN(x) === false && parseInt(x) > 0) {return true} else {console.log("You must enter a valid number.")}}
+        message: 'How many would you like to add?',
+        validate: (x) => {if(isNaN(x) === false && parseInt(x) > 0) {return true} else {console.log("You must enter a valid response.")}}
     },
     ]).then(function(item){
 
@@ -125,19 +123,19 @@ function addInventory(){
 })
 };
 
-// Allows user to add a new product to the products table in the sql database
+
 function addProduct(){
     connection.query("SELECT * FROM products GROUP BY department_name", function(err, res){
     inquirer.prompt([
         {
             type: 'input',
             name: "name",
-            message: "What is the name of the product?"
+            message: "What is the product name?"
         },
         {
             type: 'rawlist',
             name: 'department',
-            message: 'Which department would you like to add it to?',
+            message: 'Which department should it go in?',
             choices: () => {
                 let deptArray = [];
                 res.forEach(function(item){
@@ -149,23 +147,23 @@ function addProduct(){
         {
             type: 'input',
             name: 'price',
-            message: 'How much does each unit cost?',
+            message: 'How much does it cost?',
             validate: function(value){
                 if (isNaN(value) === false && parseFloat(value) > 0){
                     return true;
                 }
-                console.log("\n You must enter a valid number above 0.");
+                console.log("\n You must enter a valid response above 0.");
             }
         },
         {
             type: 'input',
             name: 'quantity',
-            message: 'How many units would you like to add?',
+            message: 'How many would you like to add?',
             validate: function(value){
                 if (isNaN(value) === false && parseFloat(value) > 0){
                     return true;
                 }
-                console.log("You must enter a valid number above 0.");
+                console.log("You must enter a valid response above 0.");
             }
         }
     ]).then(function(item){
@@ -177,7 +175,7 @@ function addProduct(){
             stock_quantity: item.quantity
 
         }, function(err, res){
-            console.log(`${item.quantity} ${item.name} added to the inventory!`);
+            console.log(`${item.quantity} ${item.name} added to inventory!`);
             returntoMenu();
         })
     })
