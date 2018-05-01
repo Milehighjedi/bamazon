@@ -51,12 +51,12 @@ function buyRock() {
             }
             return choiceArray;
           },
-          message: "What tunes are you into?"
+          message: "What instrument are you into?"
         },
         {
           name: "quantity",
           type: "input",
-          message: "How many?"
+          message: "How many are you looking at?"
         }
       ])
       .then(function(answer) {

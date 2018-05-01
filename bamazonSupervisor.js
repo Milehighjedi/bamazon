@@ -69,6 +69,8 @@ function salesStats() {
         })
 };
 
+
+
 function newDept() {
     inquirer.prompt([
         {
