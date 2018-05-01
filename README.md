@@ -18,15 +18,44 @@ Regional Supervisor application
 
 The menu for a supervisor gives them the option to view product sales and over all profits by department. This table populates based on the database information, and calculates a temporary table called total profits.In addition to this, Supervisors are able to add a department.
 
+CUSTOMER INTRODUCTION SCREEN
+
 ![alt text](images/CustIntro.png "Customer Introduction Screen")
+
+CUSTOMER PURCHASE SCREEN
+
 ![alt text](images/CustPurch.png "Customer Purchase Screen")
+
+INVENTORY ADD SCREEN
+
 ![alt text](images/ItemSql.png "Inventory Add Screen")
+
+MANAGER INTRODUCTION SCREEN
+
 ![alt text](images/CustIntro.png "Manager Introduction Screen")
+
+MANAGER INVENTORY ADD SCREEN
+
 ![alt text](images/MgrAddInv.png "Manager Inventory Add Screen")
+
+MANAGER VIEW INVENTORY SCREEN
+
 ![alt text](images/MgrInv.png "Manager View Inventory Screen")
+
+SUPERVISOR INTRODUCTION SCREEN
+
 ![alt text](images/SupIntro.png "Supervisor Introduction Screen")
+
+SUPERVISOR DEPARTMENT TOTAL SCREEN
+
 ![alt text](images/SupTotal.png "Supervisor Department Total Screen")
+
+DEPARTMENT ADD IN SQL
+
 ![alt text](images/DeptSql.png "Department Add in SQL")
+
+SUPERVISOR DEPT ADD SCREEN
+
 ![alt text](images/DeptAdd.png "Supervisor Department Add Screen")
 
 
