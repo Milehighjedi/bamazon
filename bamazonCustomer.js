@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "root",
+  password: '',
   database: "bamazon"
 });
 
@@ -25,7 +25,7 @@ function start() {
       choices: ["ROCK", "EXIT"]
     })
     .then(function(answer) {
-      if (answer.buyOrExit.toUpperCase() === "ROCK") {
+      if (answer.rockOrExit.toUpperCase() === "ROCK") {
         buyRock();
       }
       else {
@@ -72,7 +72,7 @@ function buyRock() {
         shoppingCart = parseFloat(shoppingCart + prodSale);
         connection.query(
             "UPDATE products SET ? WHERE ?", [
-                {product_sales: prodSale},
+                {product_name: prodSale},
                 {
               item_id: chosenItem.item_id
                 }
